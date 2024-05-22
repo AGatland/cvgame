@@ -6,6 +6,9 @@ import assetDirtBlock from '../assets/dirtblock2.png'
 import assetSkyBlock from '../assets/skyblock3.png'
 import assetCloudBlock from '../assets/cloudblock2.png'
 import assetWinnerText from '../assets/winnertext.svg'
+import assetButtonGuide from '../assets/buttonguide.png'
+import { useNavigate } from 'react-router-dom'
+import Doors from './doors'
 
 const totalLevels = 3;
 
@@ -49,8 +52,15 @@ const platformWidth = 100
 function Game() {
   const [reachedGoal, setReachedGoal] = useState(false)
   const [platforms, setPlatforms] = useState(platformLevels[0])
-  const [characterPosition, setCharacterPosition] = useState({ x: 0, y: 800 })
+  const [characterPosition, setCharacterPosition] = useState({ x: 100, y: 800 })
   const [level, setLevel] = useState(0)
+
+  // Nav
+  const navigate = useNavigate()
+
+  const doors = [
+      { x: 100, y: 800, title: "LOBBY", action: () => navigate("/") },
+    ]
 
   const loadNewStage = (posx) => {
     if (level+1 < totalLevels) {
@@ -59,7 +69,6 @@ function Game() {
       setCharacterPosition({ x: posx, y: 800 })
     }
     else {
-      setLevel(level+1)
       setReachedGoal(true)
       setPlatforms([])
       setCharacterPosition({ x: 0, y: 800 })
@@ -71,14 +80,17 @@ function Game() {
     {level == 0 && <div
                 style={{
                     position: 'absolute',
-                    left: `100px`,
-                    top: `300px`,
+                    left: `50px`,
+                    top: `200px`,
                     width: `300px`,
                     height: `300px`,
-                    backgroundColor: `red`,
+                    backgroundImage: `url(${assetButtonGuide})`,
+                    backgroundSize: 'cover',
+                    imageRendering: 'pixelated',
+                    zIndex: 0,
                 }}
             />}
-    {level == 3 && (
+    {reachedGoal && (
     <div
         style={{
             position: 'absolute',
@@ -99,8 +111,10 @@ function Game() {
         platforms={platforms}
         platformWidth={platformWidth}
         loadNewStage={loadNewStage}
+        objects={doors}
       />
       <Platforms platforms={platforms} platformWidth={platformWidth} />
+      <Doors doors={doors} />
     </div>
     <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px"}} />
     <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1"}} />

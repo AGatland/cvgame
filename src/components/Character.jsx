@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import spriteSheet from '../assets/DinoSpritesVita.png'
 
-function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage }) {
+function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage, objects }) {
     // Const definitions
     const gravity = 0.5
     const jumpStrength = 10
@@ -28,9 +28,8 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
     const handleKeyPress = (event) => {
         const { key } = event
 
-        if (key === 'ArrowDown') {
-            console.log("Go down")
-            // Not yet implemented, will be used to go to a new screen where you climb down a rope. But this can be its own component and all that stuff.
+        if (key === 'ArrowUp') {
+            handleInteraction()
         }
         if (key === 'ArrowLeft') {
             setAnimationStart(4)
@@ -66,6 +65,18 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
             setAnimationLength(4)
             setAnimationStart(0)
         }
+    }
+
+    const handleInteraction = () => {
+        const proximityThreshold = 50 // Define the distance threshold for interaction
+        objects.forEach((object) => {
+            const distance = Math.sqrt(
+                Math.pow(position.x - object.x, 2) + Math.pow(position.y - object.y, 2)
+            )
+            if (distance < proximityThreshold) {
+                object.action()
+            }
+        })
     }
 
     const checkPlatformCollision = (newPos) => {
@@ -161,7 +172,7 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
             window.removeEventListener('keydown', handleKeyPress)
             window.removeEventListener('keyup', handleKeyUp)
         }
-    }, [isJumping])
+    }, [isJumping, handleKeyPress])
 
     useEffect(() => {
         if (hasReachedGoal) {
@@ -188,7 +199,8 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
                     backgroundSize: 'cover',
                     imageRendering: 'pixelated',
                     transform: direction === 'left' ? 'scaleX(-1)' : 'scaleX(1)', // Flip sprite by movement dir
-                    transition: 'transform 0.1s' // Smooth transition for flipping
+                    transition: 'transform 0.1s', // Smooth transition for flipping
+                    zIndex: 2,
                 }}
             />
         </div>

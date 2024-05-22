@@ -14,3 +14,10 @@
 body {
   margin: 0;
 }
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./fonts/cloudfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
