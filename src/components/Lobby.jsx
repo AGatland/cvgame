@@ -57,7 +57,7 @@ function Lobby() {
                 }}
             >
       <h1  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>WELCOME TO MY PAGE</h1>
-      <h2  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>THERE IS A PLATFORM JUMP GAME INSIDE THE GAME DOOR AND MY CV IS DOWN THE WELL. TO RETURN HERE, EITHER REMOVE THE PATH, OR GO BACK THROUGH THE LOBBY DOOR LOCATED IN THE GAME ROOMS OR CLIMB BACK UP THE WELL.</h2>
+      <h2  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>THERE IS A PLATFORM JUMP GAME INSIDE THE GAME DOOR AND MY CV IS DOWN THE WELL. TO RETURN HERE, EITHER GO TO DEFAULT PATH, GO BACK THROUGH THE LOBBY DOOR LOCATED IN THE GAME ROOMS OR CLIMB BACK UP THE WELL.</h2>
       <h2  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>ALEXANDER GATLAND</h2>
       </div>
 
