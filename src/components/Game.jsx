@@ -1,6 +1,11 @@
 import Character from './Character'
 import Platforms from './Platforms'
 import { useState } from 'react'
+import assetGrassBlock from '../assets/grassblock2.png'
+import assetDirtBlock from '../assets/dirtblock2.png'
+import assetSkyBlock from '../assets/skyblock3.png'
+import assetCloudBlock from '../assets/cloudblock2.png'
+import assetWinnerText from '../assets/winnertext.svg'
 
 const totalLevels = 3;
 
@@ -54,6 +59,7 @@ function Game() {
       setCharacterPosition({ x: posx, y: 800 })
     }
     else {
+      setLevel(level+1)
       setReachedGoal(true)
       setPlatforms([])
       setCharacterPosition({ x: 0, y: 800 })
@@ -72,7 +78,22 @@ function Game() {
                     backgroundColor: `red`,
                 }}
             />}
-    <div style={{height: "848px"}}>
+    {level == 3 && (
+    <div
+        style={{
+            position: 'absolute',
+            left: '500px',
+            top: '300px',
+            width: '800px',
+            height: '200px', 
+            backgroundImage: `url(${assetWinnerText})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'contain'
+        }}
+    />
+)}
+    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px"}} />
+    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "816px"}}>
       <Character
         initialCharacterPos={characterPosition}
         platforms={platforms}
@@ -81,7 +102,8 @@ function Game() {
       />
       <Platforms platforms={platforms} platformWidth={platformWidth} />
     </div>
-    <div style={{backgroundColor:"green", flexGrow:"1"}}></div>
+    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px"}} />
+    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1"}} />
     </div>
   )
 }

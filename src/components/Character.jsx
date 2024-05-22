@@ -186,6 +186,7 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
                     backgroundImage: `url(${spriteSheet})`,
                     backgroundPosition: `-${(frame + animationStart) * spriteWidth}px 0px`, // Move the sprite sheet background
                     backgroundSize: 'cover',
+                    imageRendering: 'pixelated',
                     transform: direction === 'left' ? 'scaleX(-1)' : 'scaleX(1)', // Flip sprite by movement dir
                     transition: 'transform 0.1s' // Smooth transition for flipping
                 }}
