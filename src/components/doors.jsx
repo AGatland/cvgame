@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import doorSprite from '../assets/doorsprite.png'
+import doorSprite from './assets/doorsprite.png'
 
 function Doors({ doors }) {
 

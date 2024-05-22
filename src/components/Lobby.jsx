@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import Character from './Character'
 import { useState } from 'react'
-import assetGrassBlock from '../assets/grassblock2.png'
-import assetDirtBlock from '../assets/dirtblock2.png'
-import assetSkyBlock from '../assets/skyblock3.png'
-import assetCloudBlock from '../assets/cloudblock2.png'
-import assetButtonGuide from '../assets/buttonguide.png'
+import assetGrassBlock from './assets/grassblock2.png'
+import assetDirtBlock from './assets/dirtblock2.png'
+import assetSkyBlock from './assets/skyblock3.png'
+import assetCloudBlock from './assets/cloudblock2.png'
+import assetButtonGuide from './assets/buttonguide.png'
 import { useNavigate } from 'react-router-dom'
 import Doors from './doors'
 

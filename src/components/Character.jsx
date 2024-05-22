@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react'
-import spriteSheet from '../assets/DinoSpritesVita.png'
+import spriteSheet from './assets/DinoSpritesVita.png'
 
 function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage, objects }) {
     // Const definitions
