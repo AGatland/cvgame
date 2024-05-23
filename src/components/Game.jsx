@@ -106,6 +106,10 @@ function Game() {
 )}
     <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px"}} />
     <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "816px"}}>
+    {!reachedGoal && (
+      <h2  style={{ marginTop: 0, fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>LEVEL <span style={{fontSize: 32}}>{level}</span></h2>
+    )
+    }
       <Character
         initialCharacterPos={characterPosition}
         platforms={platforms}
