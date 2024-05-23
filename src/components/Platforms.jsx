@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import platformSprite from './assets/platformsprite.png'
 
 function Platforms({ platforms, platformWidth }) {
 
@@ -12,8 +13,11 @@ function Platforms({ platforms, platformWidth }) {
                         left: `${platform.x-10}px`,
                         top: `${platform.y+48}px`,
                         width: `${platformWidth+20}px`,
-                        height: '10px', // Giving a small height to visualize the platform
-                        backgroundColor: 'gray'
+                        height: '12px', // Giving a small height to visualize the platform
+                        backgroundImage: `url(${platformSprite})`,
+                        backgroundSize: 'cover',
+                        imageRendering: 'pixelated',
+                        zIndex: 0,
                     }}
                 />
             ))}
