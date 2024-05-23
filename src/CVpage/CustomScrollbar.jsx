@@ -3,7 +3,6 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 import assetRopeBlock from './assets/ropeblock.png'
 import vitaBackSprite from './assets/vitabacksprite.png'
 
-
 function CustomScrollbar({ children }) {
   const renderThumb = ({ style, ...props }) => {
     const thumbStyle = {
@@ -31,7 +30,7 @@ function CustomScrollbar({ children }) {
 
   const renderView = ({ style, ...props }) => {
     const viewStyle = {
-      marginRight: '-50px', // Negative margin to ensure content doesn't overflow
+      marginRight: '-40px', // Negative margin to ensure content doesn't overflow
     };
     return <div style={{ ...style, ...viewStyle }} {...props} />;
   };
