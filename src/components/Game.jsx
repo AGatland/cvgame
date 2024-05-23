@@ -10,8 +10,6 @@ import assetButtonGuide from './assets/buttonguide.png'
 import { useNavigate } from 'react-router-dom'
 import Doors from './doors'
 
-const totalLevels = 3;
-
 // Platform positions (example)
 const platformLevels = [
   [
@@ -46,6 +44,8 @@ const platformLevels = [
     { x: 500, y: 50 },
   ]
 ]
+
+const totalLevels = platformLevels.length;
 
 const platformWidth = 100
 
@@ -107,7 +107,7 @@ function Game() {
     <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px"}} />
     <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "816px"}}>
     {!reachedGoal && (
-      <h2  style={{ marginTop: 0, fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>LEVEL <span style={{fontSize: 32}}>{level}</span></h2>
+      <h2  style={{ marginTop: 0, fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>LEVEL <span style={{fontSize: 32}}>{level+1}</span></h2>
     )
     }
       <Character
