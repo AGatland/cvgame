@@ -8,6 +8,7 @@ import assetCloudBlock from './assets/cloudblock2.png'
 import assetButtonGuide from './assets/buttonguide.png'
 import { useNavigate } from 'react-router-dom'
 import Doors from './doors'
+import Holes from './holes'
 
 function Lobby() {
   const [characterPosition, setCharacterPosition] = useState({ x: 0, y: 800 })
@@ -18,6 +19,8 @@ function Lobby() {
     const doors = [
         { x: 300, y: 800, title: "GAME", action: () => navigate("/game") },
         ]
+    const holes = [ { x: 700, y: 800, title: "CV", action: () => navigate("/cv") }]
+      
 
   const loadNewStage = (posx) => {
   }
@@ -44,9 +47,10 @@ function Lobby() {
         platforms={[]}
         platformWidth={0}
         loadNewStage={loadNewStage}
-        objects={doors}
+        objects={[...doors, ...holes]}
       />
       <Doors doors={doors} />
+      <Holes holes={holes} />
       <div
                 style={{
                     position: 'absolute',
@@ -57,7 +61,7 @@ function Lobby() {
                 }}
             >
       <h1  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>WELCOME TO MY PAGE</h1>
-      <h2  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>THERE IS A PLATFORM JUMP GAME INSIDE THE GAME DOOR AND MY CV IS DOWN THE WELL. TO RETURN HERE, EITHER GO TO DEFAULT PATH, GO BACK THROUGH THE LOBBY DOOR LOCATED IN THE GAME ROOMS OR CLIMB BACK UP THE WELL.</h2>
+      <h2  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>THERE IS A PLATFORM JUMP GAME INSIDE THE GAME DOOR AND MY CV IS DOWN THE HOLE. TO RETURN HERE, EITHER GO TO DEFAULT PATH, GO BACK THROUGH THE LOBBY DOOR LOCATED IN THE GAME ROOMS OR CLIMB BACK UP THE HOLE.</h2>
       <h2  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>ALEXANDER GATLAND</h2>
       </div>
 
