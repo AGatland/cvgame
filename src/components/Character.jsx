@@ -3,11 +3,11 @@ import { useState, useEffect, useRef } from 'react'
 import vitaIdleGif from './assets/DinoSpritesVita_idle.gif'
 import vitaRunGif from './assets/DinoSpritesVita_run.gif'
 
-function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage, objects, spriteDim }) {
+function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage, objects, spriteDim, groundLevel }) {
     // Const definitions
     const gravity = 0.1
     const jumpStrength = 1.7
-    const floorLevel = initialCharacterPos.y // Variable for the floor position
+    const floorLevel = groundLevel // Variable for the floor position
 
     // States
     const [position, setPosition] = useState(initialCharacterPos)
@@ -64,7 +64,7 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
     }
 
     const handleInteraction = () => {
-        const proximityThreshold = 3 // Define the distance threshold for interaction
+        const proximityThreshold = spriteDim+1 // Define the distance threshold for interaction
         objects.forEach((object) => {
             const distance = Math.sqrt(
                 Math.pow(position.x - object.x, 2) + Math.pow(position.y - object.y, 2)
@@ -167,12 +167,12 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
 
     useEffect(() => {
         if (hasReachedGoal) {
-            loadNewStage(position.x)
-            setPosition({x: 0, y: 84 })
-            setVelocity({x: 0, y: 84 })
+            loadNewStage()
+            setPosition({x: 0, y: groundLevel })
+            setVelocity({x: 0, y: groundLevel })
             setHasReachedGoal(false)
         }
-    }, [hasReachedGoal, loadNewStage, position.x])
+    }, [hasReachedGoal, loadNewStage])
 
     //const spriteSize = spriteDim/window.innerWidth;
 

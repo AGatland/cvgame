@@ -17,9 +17,9 @@ function Doors({ doors, spriteDim }) {
                         backgroundImage: `url(${doorSprite})`,
                         backgroundSize: 'cover',
                         imageRendering: 'pixelated',
-                        zIndex: 0,
+                        zIndex: 1,
                     }}
-                ><p  style={{ fontFamily: 'CustomFont, sans-serif', position: 'absolute', top: -35, left: -5 }}>{door.title}</p></div>
+                ><p  style={{ fontFamily: 'CustomFont, sans-serif', position: 'absolute', top: -spriteDim+"vh" }}>{door.title}</p></div>
             ))}
         </div>
     )

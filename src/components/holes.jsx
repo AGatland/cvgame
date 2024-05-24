@@ -11,15 +11,15 @@ function Holes({ holes, spriteDim }) {
                     style={{
                         position: 'absolute',
                         left: `${hole.x}vw`,
-                        top: `${hole.y}vh`,
+                        bottom: `${ 99 - hole.y}vh`,
                         width: `${spriteDim}vw`,
                         height: `${spriteDim}vw`,
                         backgroundImage: `url(${holeSprite})`,
                         backgroundSize: 'cover',
                         imageRendering: 'pixelated',
-                        zIndex: 0,
+                        zIndex: 1,
                     }}
-                ><p  style={{ fontFamily: 'CustomFont, sans-serif', position: 'absolute', top: -10, left: 7 }}>{hole.title}</p></div>
+                ><p  style={{ fontFamily: 'CustomFont, sans-serif', position: 'absolute', top: -spriteDim+"vh" }}>{hole.title}</p></div>
             ))}
         </div>
     )

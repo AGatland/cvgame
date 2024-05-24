@@ -1,14 +1,8 @@
-import Character from './Character'
-import Platforms from './Platforms'
 import { useState } from 'react'
-import assetGrassBlock from './assets/grassblock2.png'
-import assetDirtBlock from './assets/dirtblock2.png'
-import assetSkyBlock from './assets/skyblock3.png'
-import assetCloudBlock from './assets/cloudblock2.png'
 import assetWinnerText from './assets/winnertext.svg'
 import assetButtonGuide from './assets/buttonguide.png'
 import { useNavigate } from 'react-router-dom'
-import Doors from './doors'
+import GameMap from './GameMap'
 
 // Platform positions (example)
 const platformLevels = [
@@ -45,52 +39,47 @@ const platformLevels = [
   ]
 ]
 
-const platformWidth = 10; // in vw
 const totalLevels = platformLevels.length;
-const characterInitialPosition = { x: 10, y: 85 }; // in vw, vh
 
 function Game() {
   const [reachedGoal, setReachedGoal] = useState(false);
   const [platforms, setPlatforms] = useState(platformLevels[0]);
-  const [characterPosition, setCharacterPosition] = useState(characterInitialPosition);
+
   const [level, setLevel] = useState(0);
 
   // Nav
   const navigate = useNavigate();
 
-  const spriteDim = 3
+  const groundLevel = 90
 
   const doors = [
-    { x: 10, y: 85, title: "LOBBY", action: () => navigate("/") },
+    { x: 10, y: groundLevel, title: "LOBBY", action: () => navigate("/") },
   ];
 
-  const loadNewStage = (posx) => {
+  const loadNewStage = () => {
     if (level + 1 < totalLevels) {
       setLevel(level + 1);
       setPlatforms(platformLevels[level + 1]);
-      setCharacterPosition({ x: posx, y: 85 });
+      
     } else {
       setReachedGoal(true);
       setPlatforms([]);
-      setCharacterPosition({ x: 0, y: 85 });
+      
     }
   };
 
   return (
-
-    <div  style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "100vh", zIndex: -1}}>
-      <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px", position: "absolute", width: "100%", zIndex: 0 }} />
-
-
-    
+    <GameMap doors={doors} holes={[]} platforms={platforms} loadNewStage={loadNewStage} groundLevel={groundLevel}>
       {level == 0 && (
         <div
           style={{
             position: 'absolute',
-            left: `5vw`,
-            top: `20vh`,
-            width: `30vw`,
-            height: `30vh`,
+            left: `0vw`,
+            top: `8vh`,
+            width: `50vw`,
+            maxWidth: "500px",
+            height: `50vw`,
+            maxHeight: "500px",
             backgroundImage: `url(${assetButtonGuide})`,
             backgroundSize: 'cover',
             imageRendering: 'pixelated',
@@ -115,23 +104,7 @@ function Game() {
         {!reachedGoal && (
           <h2 style={{ position: "absolute", fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em', zIndex: 0 }}>LEVEL <span style={{ fontSize: 32 }}>{level + 1}</span></h2>
         )}
-        <Character
-          initialCharacterPos={characterPosition}
-          platforms={platforms}
-          platformWidth={platformWidth}
-          loadNewStage={loadNewStage}
-          objects={doors}
-          spriteDim={spriteDim}
-        />
-        <Platforms platforms={platforms} platformWidth={platformWidth} />
-        <Doors doors={doors} spriteDim={spriteDim+1} />
-
-
-        <div style={{display: "flex", flexDirection: "column", position: "absolute", top: "85vh", height: "15vh", width: "100%"}}>
-          <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px" }} />
-          <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1" }} />
-      </div>
-    </div>
+      </GameMap>
   );
 }
 

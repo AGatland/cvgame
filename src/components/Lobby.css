@@ -1,9 +1,22 @@
 .lobby-info-box {
     position: absolute;
+    left: 500px;
+    top: 200px;
+    height: 300px;
   }
 
 @media (max-width: 1000px) {
     .lobby-info-box {
-      position: unset;
+      left: 0px;
+      top: 15px;
+      height: 300px;
+    }
+
+    .lobby-info-box > h2 {
+      font-size: 18px;
+    }
+
+    .lobby-info-box > h1 {
+      font-size: 22px;
     }
   }
