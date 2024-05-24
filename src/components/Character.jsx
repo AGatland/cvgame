@@ -1,24 +1,23 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react'
-import spriteSheet from './assets/DinoSpritesVita.png'
+import vitaIdleGif from './assets/DinoSpritesVita_idle.gif'
+import vitaRunGif from './assets/DinoSpritesVita_run.gif'
 
-function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage, objects }) {
+function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage, objects, spriteDim }) {
     // Const definitions
-    const gravity = 0.5
-    const jumpStrength = 10
+    const gravity = 0.1
+    const jumpStrength = 1.7
     const floorLevel = initialCharacterPos.y // Variable for the floor position
 
     // States
     const [position, setPosition] = useState(initialCharacterPos)
     const [velocity, setVelocity] = useState({ x: 0, y: 0 })
-    const [frame, setFrame] = useState(0) // Track the current animation frame
-    const [animationStart, setAnimationStart] = useState(0)
-    const [animationLength, setAnimationLength] = useState(4)
     const [direction, setDirection] = useState('right') // Track the direction
     const [isJumping, setIsJumping] = useState(false) // Track jumping state
     const [isOnGround, setIsOnGround] = useState(true) // Track if the character is on the ground
     const [platformOn, setPlatformOn] = useState(null)
     const [hasReachedGoal, setHasReachedGoal] = useState(false)
+    const [charAnimation, setCharAnimation] = useState(vitaIdleGif)
 
     // Refs
     const requestRef = useRef()
@@ -32,14 +31,12 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
             handleInteraction()
         }
         if (key === 'ArrowLeft') {
-            setAnimationStart(4)
-            setAnimationLength(6)
+            setCharAnimation(vitaRunGif)
             setDirection('left')
             movingRef.current.left = true
         }
         if (key === 'ArrowRight') {
-            setAnimationStart(4)
-            setAnimationLength(6)
+            setCharAnimation(vitaRunGif)
             setDirection('right')
             movingRef.current.right = true
         }
@@ -62,13 +59,12 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
         }
 
         if (!movingRef.current.left && !movingRef.current.right) {
-            setAnimationLength(4)
-            setAnimationStart(0)
+            setCharAnimation(vitaIdleGif)
         }
     }
 
     const handleInteraction = () => {
-        const proximityThreshold = 50 // Define the distance threshold for interaction
+        const proximityThreshold = 3 // Define the distance threshold for interaction
         objects.forEach((object) => {
             const distance = Math.sqrt(
                 Math.pow(position.x - object.x, 2) + Math.pow(position.y - object.y, 2)
@@ -82,7 +78,7 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
     const checkPlatformCollision = (newPos) => {
         for (const platform of platforms) {
             if (
-                newPos.x + 50 > platform.x && // Character's right side is beyond platform's left side
+                newPos.x + spriteDim > platform.x && // Character's right side is beyond platform's left side
                 newPos.x < platform.x + platformWidth && // Character's left side is before platform's right side
                 position.y < platform.y && // Character was above the platform
                 newPos.y >= platform.y // Character is now on or below the platform
@@ -96,7 +92,7 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
 
     const checkWalkOffPlatform = (newPos) => {
         if (platformOn != null) {
-            if (newPos.x + 50 < platformOn.x || newPos.x > platformOn.x + platformWidth) {
+            if (newPos.x + spriteDim < platformOn.x || newPos.x > platformOn.x + platformWidth) {
                 setPlatformOn(null)
                 setIsOnGround(false)
                 setIsJumping(true)
@@ -109,11 +105,6 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
     useEffect(() => {
         const animate = (time) => {
             if (previousTimeRef.current !== undefined) {
-                const deltaTime = time - previousTimeRef.current
-                if (deltaTime > 150) { // Change frame every 150ms
-                    setFrame((prevFrame) => (prevFrame + 1) % animationLength)
-                    previousTimeRef.current = time
-                }
 
                 // Apply gravity
                 if (isJumping || !isOnGround) {
@@ -150,10 +141,10 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
 
                 // Move character
                 if (movingRef.current.left) {
-                    setPosition((pos) => ({ ...pos, x: pos.x - 5 }))
+                    setPosition((pos) => ({ ...pos, x: pos.x - 0.5 }))
                 }
                 if (movingRef.current.right) {
-                    setPosition((pos) => ({ ...pos, x: pos.x + 5 }))
+                    setPosition((pos) => ({ ...pos, x: pos.x + 0.5 }))
                 }
             } else {
                 previousTimeRef.current = time
@@ -163,7 +154,7 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
 
         requestRef.current = requestAnimationFrame(animate)
         return () => cancelAnimationFrame(requestRef.current)
-    }, [animationLength, isJumping, velocity])
+    }, [charAnimation, isJumping, velocity])
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyPress)
@@ -177,25 +168,24 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
     useEffect(() => {
         if (hasReachedGoal) {
             loadNewStage(position.x)
-            setVelocity({x: 0, y: 800 })
+            setPosition({x: 0, y: 84 })
+            setVelocity({x: 0, y: 84 })
             setHasReachedGoal(false)
         }
     }, [hasReachedGoal, loadNewStage, position.x])
 
-    const spriteWidth = 50 // Width of a single frame
-    const spriteHeight = 50 // Height of a single frame
+    //const spriteSize = spriteDim/window.innerWidth;
 
     return (
         <div>
             <div
                 style={{
                     position: 'absolute',
-                    left: `${position.x}px`,
-                    top: `${position.y}px`,
-                    width: `${spriteWidth}px`,
-                    height: `${spriteHeight}px`,
-                    backgroundImage: `url(${spriteSheet})`,
-                    backgroundPosition: `-${(frame + animationStart) * spriteWidth}px 0px`, // Move the sprite sheet background
+                    left: `${position.x}vw`,
+                    bottom: `${100-position.y}vh`,
+                    width: `${spriteDim}vw`,
+                    height: `${spriteDim}vw`,
+                    backgroundImage: `url(${charAnimation})`,
                     backgroundSize: 'cover',
                     imageRendering: 'pixelated',
                     transform: direction === 'left' ? 'scaleX(-1)' : 'scaleX(1)', // Flip sprite by movement dir

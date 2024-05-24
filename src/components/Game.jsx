@@ -13,117 +13,127 @@ import Doors from './doors'
 // Platform positions (example)
 const platformLevels = [
   [
-    { x: 100, y: 700 },
-    { x: 220, y: 600 },
-    { x: 340, y: 500 },
-    { x: 460, y: 400 },
-    { x: 580, y: 300 },
-    { x: 700, y: 200 },
-    { x: 820, y: 100 },
-    { x: 940, y: 0 },
+    { x: 4, y: 75 },
+    { x: 16, y: 65 },
+    { x: 28, y: 55 },
+    { x: 40, y: 45 },
+    { x: 52, y: 35 },
+    { x: 64, y: 25 },
+    { x: 76, y: 15 },
+    { x: 88, y: 5 },
   ],
   [
-    { x: 940, y: 700 },
-    { x: 860, y: 600 },
-    { x: 780, y: 500 },
-    { x: 700, y: 400 },
-    { x: 620, y: 300 },
-    { x: 540, y: 200 },
-    { x: 460, y: 100 },
-    { x: 380, y: 0 },
+    { x: 88, y: 75 },
+    { x: 76, y: 65 },
+    { x: 64, y: 55 },
+    { x: 52, y: 45 },
+    { x: 40, y: 35 },
+    { x: 28, y: 25 },
+    { x: 16, y: 15 },
+    { x: 4, y: 5 },
   ],
   [
-    { x: 380, y: 700 },
-    { x: 500, y: 600 },
-    { x: 250, y: 500 },
-    { x: 100, y: 400 },
-    { x: 150, y: 300 },
-    { x: 500, y: 300 },
-    { x: 700, y: 200 },
-    { x: 700, y: 150 },
-    { x: 500, y: 50 },
+    { x: 38, y: 75 },
+    { x: 50, y: 65 },
+    { x: 25, y: 55 },
+    { x: 10, y: 45 },
+    { x: 15, y: 35 },
+    { x: 45, y: 35 },
+    { x: 65, y: 25 },
+    { x: 70, y: 15 },
+    { x: 50, y: 5 },
   ]
 ]
 
+const platformWidth = 10; // in vw
 const totalLevels = platformLevels.length;
-
-const platformWidth = 100
+const characterInitialPosition = { x: 10, y: 85 }; // in vw, vh
 
 function Game() {
-  const [reachedGoal, setReachedGoal] = useState(false)
-  const [platforms, setPlatforms] = useState(platformLevels[0])
-  const [characterPosition, setCharacterPosition] = useState({ x: 100, y: 800 })
-  const [level, setLevel] = useState(0)
+  const [reachedGoal, setReachedGoal] = useState(false);
+  const [platforms, setPlatforms] = useState(platformLevels[0]);
+  const [characterPosition, setCharacterPosition] = useState(characterInitialPosition);
+  const [level, setLevel] = useState(0);
 
   // Nav
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const spriteDim = 3
 
   const doors = [
-      { x: 100, y: 800, title: "LOBBY", action: () => navigate("/") },
-    ]
+    { x: 10, y: 85, title: "LOBBY", action: () => navigate("/") },
+  ];
 
   const loadNewStage = (posx) => {
-    if (level+1 < totalLevels) {
-      setLevel(level+1)
-      setPlatforms(platformLevels[level+1])
-      setCharacterPosition({ x: posx, y: 800 })
+    if (level + 1 < totalLevels) {
+      setLevel(level + 1);
+      setPlatforms(platformLevels[level + 1]);
+      setCharacterPosition({ x: posx, y: 85 });
+    } else {
+      setReachedGoal(true);
+      setPlatforms([]);
+      setCharacterPosition({ x: 0, y: 85 });
     }
-    else {
-      setReachedGoal(true)
-      setPlatforms([])
-      setCharacterPosition({ x: 0, y: 800 })
-    }
-  }
+  };
 
   return (
-    <div style={{display: "flex", flexDirection:"column", height:"100vh"}}>
-    {level == 0 && <div
-                style={{
-                    position: 'absolute',
-                    left: `50px`,
-                    top: `200px`,
-                    width: `300px`,
-                    height: `300px`,
-                    backgroundImage: `url(${assetButtonGuide})`,
-                    backgroundSize: 'cover',
-                    imageRendering: 'pixelated',
-                    zIndex: 0,
-                }}
-            />}
-    {reachedGoal && (
-    <div
-        style={{
+
+    <div  style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "100vh", zIndex: -1}}>
+      <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px", position: "absolute", width: "100%", zIndex: 0 }} />
+
+
+    
+      {level == 0 && (
+        <div
+          style={{
             position: 'absolute',
-            left: '500px',
-            top: '300px',
-            width: '800px',
-            height: '200px', 
+            left: `5vw`,
+            top: `20vh`,
+            width: `30vw`,
+            height: `30vh`,
+            backgroundImage: `url(${assetButtonGuide})`,
+            backgroundSize: 'cover',
+            imageRendering: 'pixelated',
+            zIndex: 0,
+          }}
+        />
+      )}
+      {reachedGoal && (
+        <div
+          style={{
+            position: 'absolute',
+            left: '20vw',
+            top: '30vh',
+            width: '60vw',
+            height: '20vh',
             backgroundImage: `url(${assetWinnerText})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'contain'
-        }}
-    />
-)}
-    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px"}} />
-    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "816px"}}>
-    {!reachedGoal && (
-      <h2  style={{ marginTop: 0, fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>LEVEL <span style={{fontSize: 32}}>{level+1}</span></h2>
-    )
-    }
-      <Character
-        initialCharacterPos={characterPosition}
-        platforms={platforms}
-        platformWidth={platformWidth}
-        loadNewStage={loadNewStage}
-        objects={doors}
-      />
-      <Platforms platforms={platforms} platformWidth={platformWidth} />
-      <Doors doors={doors} />
+          }}
+        />
+      )}
+        {!reachedGoal && (
+          <h2 style={{ position: "absolute", fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em', zIndex: 0 }}>LEVEL <span style={{ fontSize: 32 }}>{level + 1}</span></h2>
+        )}
+        <Character
+          initialCharacterPos={characterPosition}
+          platforms={platforms}
+          platformWidth={platformWidth}
+          loadNewStage={loadNewStage}
+          objects={doors}
+          spriteDim={spriteDim}
+        />
+        <Platforms platforms={platforms} platformWidth={platformWidth} />
+        <Doors doors={doors} spriteDim={spriteDim+1} />
+
+
+        <div style={{display: "flex", flexDirection: "column", position: "absolute", top: "85vh", height: "15vh", width: "100%"}}>
+          <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px" }} />
+          <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1" }} />
+      </div>
     </div>
-    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px"}} />
-    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1"}} />
-    </div>
-  )
+  );
 }
+
 
 export default Game

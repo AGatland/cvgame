@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import doorSprite from './assets/doorsprite.png'
 
-function Doors({ doors }) {
+function Doors({ doors, spriteDim }) {
 
     return (
         <div>
@@ -10,10 +10,10 @@ function Doors({ doors }) {
                     key={index}
                     style={{
                         position: 'absolute',
-                        left: `${door.x}px`,
-                        top: `${door.y-2}px`,
-                        width: `50px`,
-                        height: '50px',
+                        left: `${door.x}vw`,
+                        bottom: `${100-door.y}vh`,
+                        width: `${spriteDim}vw`,
+                        height: `${spriteDim}vw`,
                         backgroundImage: `url(${doorSprite})`,
                         backgroundSize: 'cover',
                         imageRendering: 'pixelated',

@@ -12,15 +12,17 @@ import Holes from './holes'
 import './Lobby.css'
 
 function Lobby() {
-  const [characterPosition, setCharacterPosition] = useState({ x: 0, y: 800 })
+  const [characterPosition, setCharacterPosition] = useState({ x: 0, y: 85 })
 
     // Nav
     const navigate = useNavigate()
 
+    const spriteDim = 3
+
     const doors = [
-        { x: 300, y: 800, title: "GAME", action: () => navigate("/game") },
+        { x: 30, y: 85, title: "GAME", action: () => navigate("/game") },
         ]
-    const holes = [ { x: 700, y: 800, title: "CV", action: () => navigate("/cv") }]
+    const holes = [ { x: 60, y: 85, title: "CV", action: () => navigate("/cv") }]
       
 
   const loadNewStage = (posx) => {
@@ -39,7 +41,9 @@ function Lobby() {
     };
 
   return (
-    <div style={{display: "flex", flexDirection:"column", height:"100vh"}}>
+    <div  style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "100vh" }}>
+      <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px", position: "absolute", width: "100%" }} />
+
     <div
                 style={{
                     position: 'absolute',
@@ -53,17 +57,16 @@ function Lobby() {
                     zIndex: 0,
                 }}
             />
-    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px"}} />
-    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "816px"}}>
       <Character
         initialCharacterPos={characterPosition}
         platforms={[]}
         platformWidth={0}
         loadNewStage={loadNewStage}
         objects={[...doors, ...holes]}
+        spriteDim={spriteDim}
       />
-      <Doors doors={doors} />
-      <Holes holes={holes} />
+      <Doors doors={doors} spriteDim={spriteDim+1} />
+      <Holes holes={holes} spriteDim={spriteDim+1} />
       <div
         className='lobby-info-box'
                 style={{
@@ -77,9 +80,7 @@ function Lobby() {
       <h2  style={{ fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em' }}>ALEXANDER GATLAND</h2>
       </div>
 
-    </div>
-    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px"}} />
-    <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1"}} />
+
     <div className="mobile-controls">
                 <button
                     className="mobile-button up"
@@ -110,6 +111,10 @@ function Lobby() {
                     Right
                 </button>
             </div>
+            <div style={{display: "flex", flexDirection: "column", position: "absolute", top: "85vh", height: "15vh", width: "100%"}}>
+          <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px" }} />
+          <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1" }} />
+      </div>
     </div>
   )
 }

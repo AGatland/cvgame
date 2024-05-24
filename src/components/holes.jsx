@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import holeSprite from './assets/holesprite.png'
 
-function Holes({ holes }) {
+function Holes({ holes, spriteDim }) {
 
     return (
         <div>
@@ -10,10 +10,10 @@ function Holes({ holes }) {
                     key={index}
                     style={{
                         position: 'absolute',
-                        left: `${hole.x}px`,
-                        top: `${hole.y+11}px`,
-                        width: `50px`,
-                        height: '50px',
+                        left: `${hole.x}vw`,
+                        top: `${hole.y}vh`,
+                        width: `${spriteDim}vw`,
+                        height: `${spriteDim}vw`,
                         backgroundImage: `url(${holeSprite})`,
                         backgroundSize: 'cover',
                         imageRendering: 'pixelated',
