@@ -37,7 +37,7 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
 
     let mobileScreenFixer = 0
     if (window.innerWidth < 1000) {
-        mobileScreenFixer = 2
+        mobileScreenFixer = 5
       }
 
     // Simulate keydown event

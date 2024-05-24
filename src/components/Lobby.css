@@ -3,7 +3,7 @@
     left: 500px;
     top: 200px;
     height: 300px;
-  }
+}
 
 @media (max-width: 1000px) {
     .lobby-info-box {
@@ -13,10 +13,10 @@
     }
 
     .lobby-info-box > h2 {
-      font-size: 18px;
+      font-size: 12px;
     }
 
     .lobby-info-box > h1 {
-      font-size: 22px;
+      font-size: 16px;
     }
   }

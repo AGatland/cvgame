@@ -10,7 +10,7 @@ function Platforms({ platforms, platformWidth }) {
                     style={{
                         position: 'absolute',
                         left: `${platform.x}vw`,
-                        bottom: `${100-platform.y}vh`,
+                        bottom: `${100-(platformWidth * 0.1)-platform.y}vh`,
                         width: `${platformWidth}vw`,
                         height: `${platformWidth * 0.1}vw`,
                         backgroundImage: `url(${platformSprite})`,
