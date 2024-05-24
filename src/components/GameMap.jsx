@@ -35,11 +35,6 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
 
     const characterInitialPosition = { x: 10, y: groundLevel }
 
-    let mobileScreenFixer = 0
-    if (window.innerWidth < 1000) {
-        mobileScreenFixer = 5
-      }
-
     // Simulate keydown event
     const simulateKeyDown = (key) => {
         const event = new KeyboardEvent('keydown', { key });
@@ -71,9 +66,8 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
     <Doors doors={doors} spriteDim={spriteDim+1} />
     <Holes holes={holes} spriteDim={spriteDim+1} />
     {/* Bottom of Map */}
-    <div style={{display: "flex", flexDirection: "column", position: "absolute", top: `calc(${groundLevel} * var(--vh))`, height: `calc((100 - ${groundLevel+mobileScreenFixer}) * var(--vh))`, width: "100%"}}>
-        <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px", flexGrow: "0" }} />
-        <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1" }}>
+    <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, position: "absolute", top: `calc(${groundLevel} * var(--vh))`, height: `calc((100 - ${groundLevel}) * var(--vh))`, width: "100%"}}>
+        <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "32px", flexGrow: "0" }} />
         {/* Buttons for mobile */}
         { groundLevel < 90 && <div className='mobile-buttons'>
             <button
@@ -106,7 +100,6 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
             onContextMenu={(e) => e.preventDefault()}
             />
         </div>}
-        </div>
     </div>
     </div>
   );
