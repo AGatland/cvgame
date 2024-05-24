@@ -35,6 +35,11 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
 
     const characterInitialPosition = { x: 10, y: groundLevel }
 
+    let mobileScreenFixer = 0
+    if (window.innerWidth < 1000) {
+        mobileScreenFixer = 2
+      }
+
     // Simulate keydown event
     const simulateKeyDown = (key) => {
         const event = new KeyboardEvent('keydown', { key });
@@ -66,8 +71,8 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
     <Doors doors={doors} spriteDim={spriteDim+1} />
     <Holes holes={holes} spriteDim={spriteDim+1} />
     {/* Bottom of Map */}
-    <div style={{display: "flex", flexDirection: "column", position: "absolute", top: `calc(${groundLevel} * var(--vh))`, height: `calc((100 - ${groundLevel}) * var(--vh))`, width: "100%"}}>
-        <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "32px" }} />
+    <div style={{display: "flex", flexDirection: "column", position: "absolute", top: `calc(${groundLevel} * var(--vh))`, height: `calc((100 - ${groundLevel+mobileScreenFixer}) * var(--vh))`, width: "100%"}}>
+        <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px", flexGrow: "0" }} />
         <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1" }}>
         {/* Buttons for mobile */}
         { groundLevel < 90 && <div className='mobile-buttons'>
@@ -76,18 +81,21 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
             style={{ backgroundImage: `url(${spriteButtonLeft})` }}
             onTouchStart={() => simulateKeyDown('ArrowLeft')}
             onTouchEnd={() => simulateKeyUp('ArrowLeft')}
+            onContextMenu={(e) => e.preventDefault()}
             />
             <button
             className="mobile-button up"
             style={{ backgroundImage: `url(${spriteButtonUp})` }}
             onTouchStart={() => simulateKeyDown('ArrowUp')}
             onTouchEnd={() => simulateKeyUp('ArrowUp')}
+            onContextMenu={(e) => e.preventDefault()}
             />
             <button
             className="mobile-button right"
             style={{ backgroundImage: `url(${spriteButtonRight})` }}
             onTouchStart={() => simulateKeyDown('ArrowRight')}
             onTouchEnd={() => simulateKeyUp('ArrowRight')}
+            onContextMenu={(e) => e.preventDefault()}
             />
             <div className="spacer"></div>
             <button
@@ -95,6 +103,7 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
             style={{ backgroundImage: `url(${spriteButtonSpace})` }}
             onTouchStart={() => simulateKeyDown(' ')}
             onTouchEnd={() => simulateKeyUp(' ')}
+            onContextMenu={(e) => e.preventDefault()}
             />
         </div>}
         </div>

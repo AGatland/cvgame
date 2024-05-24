@@ -20,6 +20,7 @@
     -ms-user-select: none; /* Prevent text selection on IE */
     touch-action: manipulation; /* Disable unwanted touch actions */
     outline: none; /* Remove outline on focus */
+    -webkit-touch-callout: none; /* Disable callout (Safari) */
   }
   
   .mobile-button.left {
