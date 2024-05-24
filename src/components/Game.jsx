@@ -4,44 +4,51 @@ import assetButtonGuide from './assets/buttonguide.png'
 import { useNavigate } from 'react-router-dom'
 import GameMap from './GameMap'
 
-// Platform positions (example)
-const platformLevels = [
-  [
-    { x: 4, y: 75 },
-    { x: 16, y: 65 },
-    { x: 28, y: 55 },
-    { x: 40, y: 45 },
-    { x: 52, y: 35 },
-    { x: 64, y: 25 },
-    { x: 76, y: 15 },
-    { x: 88, y: 5 },
-  ],
-  [
-    { x: 88, y: 75 },
-    { x: 76, y: 65 },
-    { x: 64, y: 55 },
-    { x: 52, y: 45 },
-    { x: 40, y: 35 },
-    { x: 28, y: 25 },
-    { x: 16, y: 15 },
-    { x: 4, y: 5 },
-  ],
-  [
-    { x: 38, y: 75 },
-    { x: 50, y: 65 },
-    { x: 25, y: 55 },
-    { x: 10, y: 45 },
-    { x: 15, y: 35 },
-    { x: 45, y: 35 },
-    { x: 65, y: 25 },
-    { x: 70, y: 15 },
-    { x: 50, y: 5 },
+function Game() {
+  let spriteDim = 3
+  let groundLevel = 90
+
+  if (window.innerWidth < 1000) {
+    spriteDim = 7
+    groundLevel = 80
+  }
+
+  const platformLevels = [
+    [
+      { x: 4, y: groundLevel*0.85 },
+      { x: 16, y: groundLevel*0.75 },
+      { x: 28, y: groundLevel*0.65 },
+      { x: 40, y: groundLevel*0.55 },
+      { x: 52, y: groundLevel*0.45 },
+      { x: 64, y: groundLevel*0.35 },
+      { x: 76, y: groundLevel*0.25 },
+      { x: 88, y: groundLevel*0.15 },
+    ],
+    [
+      { x: 88, y: groundLevel*0.85 },
+      { x: 76, y: groundLevel*0.75 },
+      { x: 64, y: groundLevel*0.65 },
+      { x: 52, y: groundLevel*0.55 },
+      { x: 40, y: groundLevel*0.45 },
+      { x: 28, y: groundLevel*0.35 },
+      { x: 16, y: groundLevel*0.25 },
+      { x: 4, y: groundLevel*0.15 },
+    ],
+    [
+      { x: 38, y: groundLevel*0.85 },
+      { x: 50, y: groundLevel*0.75 },
+      { x: 25, y: groundLevel*0.65 },
+      { x: 10, y: groundLevel*0.55 },
+      { x: 15, y: groundLevel*0.45 },
+      { x: 45, y: groundLevel*0.45 },
+      { x: 65, y: groundLevel*0.35 },
+      { x: 70, y: groundLevel*0.25 },
+      { x: 50, y: groundLevel*0.15 },
+    ]
   ]
-]
 
 const totalLevels = platformLevels.length;
 
-function Game() {
   const [reachedGoal, setReachedGoal] = useState(false);
   const [platforms, setPlatforms] = useState(platformLevels[0]);
 
@@ -49,8 +56,6 @@ function Game() {
 
   // Nav
   const navigate = useNavigate();
-
-  const groundLevel = 90
 
   const doors = [
     { x: 10, y: groundLevel, title: "LOBBY", action: () => navigate("/") },
@@ -69,7 +74,7 @@ function Game() {
   };
 
   return (
-    <GameMap doors={doors} holes={[]} platforms={platforms} loadNewStage={loadNewStage} groundLevel={groundLevel}>
+    <GameMap doors={doors} holes={[]} platforms={platforms} loadNewStage={loadNewStage} groundLevel={groundLevel}  spriteDim={spriteDim}>
       {level == 0 && (
         <div
           style={{
@@ -86,6 +91,14 @@ function Game() {
             zIndex: 0,
           }}
         />
+      )}
+            {level == 0 && (
+        <h2 style={{
+          position: 'absolute',
+          right: '2vw',
+          top: '1vh',
+          fontFamily: 'CustomFont, sans-serif', wordSpacing: '0.5em'
+        }}>GO UP</h2>
       )}
       {reachedGoal && (
         <div

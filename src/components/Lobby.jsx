@@ -7,8 +7,13 @@ import GameMap from './GameMap'
 function Lobby() {
     // Nav
     const navigate = useNavigate()
-
-    const groundLevel = 90
+    let spriteDim = 3
+    let groundLevel = 90
+  
+    if (window.innerWidth < 1000) {
+      spriteDim = 7
+      groundLevel = 80
+    }
 
     const doors = [
         { x: 30, y: groundLevel, title: "GAME", action: () => navigate("/game") },
@@ -16,15 +21,15 @@ function Lobby() {
     const holes = [ { x: 60, y: groundLevel, title: "CV", action: () => navigate("/cv") }]
 
   return (
-    <GameMap doors={doors} holes={holes} platforms={[]} loadNewStage={null} groundLevel={groundLevel}>
+    <GameMap doors={doors} holes={holes} platforms={[]} loadNewStage={null} groundLevel={groundLevel} spriteDim={spriteDim}>
 
     <div
                 style={{
                     position: 'absolute',
-                    left: `50px`,
-                    top: `400px`,
-                    width: `300px`,
-                    height: `300px`,
+                    left: `0vw`,
+                    bottom: 105-groundLevel+"vh",
+                    width: `200px`,
+                    height: `200px`,
                     backgroundImage: `url(${assetButtonGuide})`,
                     backgroundSize: 'cover',
                     imageRendering: 'pixelated',

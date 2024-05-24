@@ -1,0 +1,47 @@
+.mobile-buttons {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 2fr 2fr 0.5fr;
+    grid-template-rows: auto auto;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-items: center;
+    column-gap: 25px;
+  }
+  
+  .mobile-button {
+    width: 100%;
+    height: 84px;
+    background-size: cover;
+    background-position: center;
+    border: none;
+  }
+  
+  .mobile-button.left {
+    grid-column: 2 / 2;
+    grid-row: 1 / 2;
+  }
+  
+  .mobile-button.up {
+    grid-column: 3 / 3;
+    grid-row: 1 / 2;
+  }
+  
+  .mobile-button.right {
+    grid-column: 4 / 4;
+    grid-row: 1 / 2;
+  }
+  
+  .spacer {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+    height: 5px; /* Adjust this height as needed */
+  }
+  
+  .mobile-button.space {
+    grid-column: 2 / 5;
+    grid-row: 3 / 4;
+    width: 100%;
+    height: 53px; /* Adjust this height as needed */
+  }
+  

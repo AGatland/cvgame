@@ -5,12 +5,18 @@ import assetGrassBlock from './assets/grassblock2.png'
 import assetDirtBlock from './assets/dirtblock2.png'
 import assetSkyBlock from './assets/skyblock3.png'
 import assetCloudBlock from './assets/cloudblock2.png'
+//import backgroundMusic from './assets/time_for_adventure.mp3' TODO: Add bg music
 import Doors from './doors'
 import Holes from './holes'
+import './GameMap.css'
+import spriteButtonUp from './assets/button_up.png'
+import spriteButtonLeft from './assets/button_left.png'
+import spriteButtonRight from './assets/button_right.png'
+import spriteButtonSpace from './assets/button_space.png'
 
-function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel }) {
+function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, spriteDim }) {
+
     const platformWidth = 10
-    const spriteDim = 3
 
     const characterInitialPosition = { x: 10, y: groundLevel }
 
@@ -47,42 +53,39 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel }
         <Doors doors={doors} spriteDim={spriteDim+1} />
         <Holes holes={holes} spriteDim={spriteDim+1} />
 
-        {/* Buttons for mobile */}
-        <div className="mobile-controls">
-            <button
-                className="mobile-button up"
-                onTouchStart={() => simulateKeyDown('ArrowUp')}
-                onTouchEnd={() => simulateKeyUp('ArrowUp')}
-            >
-                Up
-            </button>
-            <button
-                className="mobile-button left"
-                onTouchStart={() => simulateKeyDown('ArrowLeft')}
-                onTouchEnd={() => simulateKeyUp('ArrowLeft')}
-            >
-                Left
-            </button>
-            <button
-                className="mobile-button space"
-                onTouchStart={() => simulateKeyDown(' ')}
-                onTouchEnd={() => simulateKeyUp(' ')}
-            >
-                Space
-            </button>
-            <button
-                className="mobile-button right"
-                onTouchStart={() => simulateKeyDown('ArrowRight')}
-                onTouchEnd={() => simulateKeyUp('ArrowRight')}
-            >
-                Right
-            </button>
-        </div>
-
         {/* Bottom of Map */}
         <div style={{display: "flex", flexDirection: "column", position: "absolute", top: groundLevel+"vh", height: 100-groundLevel+"vh", width: "100%"}}>
           <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px" }} />
-          <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1" }} />
+          <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1" }}> 
+            {/* Buttons for mobile */}
+            { groundLevel < 90 && <div className='mobile-buttons'>
+            <button
+                className="mobile-button left"
+                style={{ backgroundImage: `url(${spriteButtonLeft})` }}
+                onTouchStart={() => simulateKeyDown('ArrowLeft')}
+                onTouchEnd={() => simulateKeyUp('ArrowLeft')}
+            />
+            <button
+                className="mobile-button up"
+                style={{ backgroundImage: `url(${spriteButtonUp})` }}
+                onTouchStart={() => simulateKeyDown('ArrowUp')}
+                onTouchEnd={() => simulateKeyUp('ArrowUp')}
+            />
+            <button
+                className="mobile-button right"
+                style={{ backgroundImage: `url(${spriteButtonRight})` }}
+                onTouchStart={() => simulateKeyDown('ArrowRight')}
+                onTouchEnd={() => simulateKeyUp('ArrowRight')}
+            />
+            <div className="spacer"></div>
+            <button
+                className="mobile-button space"
+                style={{ backgroundImage: `url(${spriteButtonSpace})` }}
+                onTouchStart={() => simulateKeyDown(' ')}
+                onTouchEnd={() => simulateKeyUp(' ')}
+            />
+            </div>}
+          </div>
       </div>
     </div>
   );
