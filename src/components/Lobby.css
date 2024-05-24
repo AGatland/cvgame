@@ -1,0 +1,9 @@
+.lobby-info-box {
+    position: absolute;
+  }
+
+@media (max-width: 1000px) {
+    .lobby-info-box {
+      position: unset;
+    }
+  }

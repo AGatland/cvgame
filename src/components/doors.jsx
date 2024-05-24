@@ -12,7 +12,7 @@ function Doors({ doors }) {
                         position: 'absolute',
                         left: `${door.x}px`,
                         top: `${door.y-2}px`,
-                        width: `${50}px`,
+                        width: `50px`,
                         height: '50px',
                         backgroundImage: `url(${doorSprite})`,
                         backgroundSize: 'cover',

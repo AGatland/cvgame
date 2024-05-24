@@ -12,7 +12,7 @@ function Holes({ holes }) {
                         position: 'absolute',
                         left: `${hole.x}px`,
                         top: `${hole.y+11}px`,
-                        width: `${50}px`,
+                        width: `50px`,
                         height: '50px',
                         backgroundImage: `url(${holeSprite})`,
                         backgroundSize: 'cover',

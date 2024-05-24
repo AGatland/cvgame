@@ -9,6 +9,7 @@ import assetButtonGuide from './assets/buttonguide.png'
 import { useNavigate } from 'react-router-dom'
 import Doors from './doors'
 import Holes from './holes'
+import './Lobby.css'
 
 function Lobby() {
   const [characterPosition, setCharacterPosition] = useState({ x: 0, y: 800 })
@@ -24,6 +25,18 @@ function Lobby() {
 
   const loadNewStage = (posx) => {
   }
+
+      // Simulate keydown event
+      const simulateKeyDown = (key) => {
+        const event = new KeyboardEvent('keydown', { key });
+        window.dispatchEvent(event);
+    };
+    
+    // Simulate keyup event
+    const simulateKeyUp = (key) => {
+        const event = new KeyboardEvent('keyup', { key });
+        window.dispatchEvent(event);
+    };
 
   return (
     <div style={{display: "flex", flexDirection:"column", height:"100vh"}}>
@@ -52,11 +65,10 @@ function Lobby() {
       <Doors doors={doors} />
       <Holes holes={holes} />
       <div
+        className='lobby-info-box'
                 style={{
-                    position: 'absolute',
                     left: `500px`,
                     top: `200px`,
-                    width: `1000px`,
                     height: `300px`,
                 }}
             >
@@ -68,6 +80,36 @@ function Lobby() {
     </div>
     <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px"}} />
     <div style={{imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1"}} />
+    <div className="mobile-controls">
+                <button
+                    className="mobile-button up"
+                    onTouchStart={() => simulateKeyDown('ArrowUp')}
+                    onTouchEnd={() => simulateKeyUp('ArrowUp')}
+                >
+                    Up
+                </button>
+                <button
+                    className="mobile-button left"
+                    onTouchStart={() => simulateKeyDown('ArrowLeft')}
+                    onTouchEnd={() => simulateKeyUp('ArrowLeft')}
+                >
+                    Left
+                </button>
+                <button
+                    className="mobile-button space"
+                    onTouchStart={() => simulateKeyDown(' ')}
+                    onTouchEnd={() => simulateKeyUp(' ')}
+                >
+                    Space
+                </button>
+                <button
+                    className="mobile-button right"
+                    onTouchStart={() => simulateKeyDown('ArrowRight')}
+                    onTouchEnd={() => simulateKeyUp('ArrowRight')}
+                >
+                    Right
+                </button>
+            </div>
     </div>
   )
 }
