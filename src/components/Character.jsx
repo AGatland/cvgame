@@ -182,7 +182,7 @@ function Character({ platforms, platformWidth, initialCharacterPos, loadNewStage
                 style={{
                     position: 'absolute',
                     left: `${position.x}vw`,
-                    bottom: `${100-position.y}vh`,
+                    bottom: `calc(100vh - ${position.y}vh)`,
                     width: `${spriteDim}vw`,
                     height: `${spriteDim}vw`,
                     backgroundImage: `url(${charAnimation})`,
