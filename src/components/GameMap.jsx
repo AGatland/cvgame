@@ -48,7 +48,7 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
     };
 
   return (
-    <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: "100vh", zIndex: -1 }}>
+    <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetSkyBlock})`, height: `calc(100 * var(--vh))`, zIndex: -1 }}>
     {/* Top of map */}
     <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetCloudBlock})`, height: "32px", position: "absolute", width: "100%", zIndex: 0 }} />
     {children /* Children inputted from other class */}
@@ -67,7 +67,7 @@ function GameMap({doors, holes, platforms, loadNewStage, children, groundLevel, 
     <Holes holes={holes} spriteDim={spriteDim+1} />
     {/* Bottom of Map */}
     <div style={{display: "flex", flexDirection: "column", position: "absolute", top: `calc(${groundLevel} * var(--vh))`, height: `calc((100 - ${groundLevel}) * var(--vh))`, width: "100%"}}>
-        <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "31px" }} />
+        <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetGrassBlock})`, height: "32px" }} />
         <div style={{ imageRendering: 'pixelated', backgroundImage: `url(${assetDirtBlock})`, flexGrow: "1" }}>
         {/* Buttons for mobile */}
         { groundLevel < 90 && <div className='mobile-buttons'>
