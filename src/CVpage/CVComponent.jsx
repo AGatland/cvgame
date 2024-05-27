@@ -139,28 +139,33 @@ function CVComponent() {
   // Nav
   const navigate = useNavigate()
 
+  let phoneVer = false
+  if (window.innerWidth < 1000) {
+    phoneVer = true
+  }
+
   return (
-        <div style={{ margin: '20px' }}>
+        <div style={ phoneVer ?  {margin: '10px'} : {margin: '20px'} }>
           <button onClick={() => navigate("/")}>Back to lobby</button>
-          <CVCompPart lineColor={""}>
-            <Profile profile={profile} />
+          <CVCompPart lineColor={""} phoneVer={phoneVer}>
+            <Profile profile={profile} phoneVer={phoneVer}/>
           </CVCompPart>
-          <CVCompPart title={"Sammendrag av kvalifikasjoner"} lineColor={"#8dd3c7"}>
+          <CVCompPart title={"Sammendrag av kvalifikasjoner"} lineColor={"#8dd3c7"} phoneVer={phoneVer}>
             <Summary summary={summary} color={"#8dd3c7"} />
           </CVCompPart>
-          <CVCompPart title={"Prosjekterfaring"} lineColor={"#ffed6f"}>
+          <CVCompPart title={"Prosjekterfaring"} lineColor={"#ffed6f"} phoneVer={phoneVer}>
             <MultiBlockCVPart data={projEx} />
           </CVCompPart>
-          <CVCompPart title={"Utdannelse"} lineColor={"#ffed6f"}>
+          <CVCompPart title={"Utdannelse"} lineColor={"#ffed6f"} phoneVer={phoneVer}>
             <MultiBlockCVPart data={education} />
           </CVCompPart>
-          <CVCompPart title={"Arbeidserfaring"} lineColor={"#80b1d3"}>
+          <CVCompPart title={"Arbeidserfaring"} lineColor={"#80b1d3"} phoneVer={phoneVer}>
             <MultiBlockCVPart data={workEx} />
           </CVCompPart>
-          <CVCompPart title={"Sertifiseringer"} lineColor={"#fdb462"}>
+          <CVCompPart title={"Sertifiseringer"} lineColor={"#fdb462"} phoneVer={phoneVer}>
             <MultiBlockCVPart data={certs} />
           </CVCompPart>
-          <CVCompPart title={"Kurs"} lineColor={"#b3de69"}>
+          <CVCompPart title={"Kurs"} lineColor={"#b3de69"} phoneVer={phoneVer}>
             <MultiBlockCVPart data={courses} />
           </CVCompPart>
         </div>

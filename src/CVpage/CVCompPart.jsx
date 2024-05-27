@@ -1,7 +1,17 @@
 /* eslint-disable react/prop-types */
 
-function CVCompPart({ children, title, lineColor }) {
+function CVCompPart({ children, title, lineColor, phoneVer }) {
 
+  if (phoneVer) {
+    return (
+      <div style={{ display: "flex", flexDirection: "row", marginRight: 38}}>
+          <div style={{ flexGrow: 1, margin: "5px", minWidth: 0 }}>
+              {title && <h1>{title}</h1>}
+              {children}
+          </div>
+      </div>
+)
+  }
   return (
         <div style={{ display: "flex", flexDirection: "row", marginRight: 45}}>
             <div style={{ backgroundColor: lineColor, width: "5px", margin: "10px", marginLeft: "0", borderRadius: 5, flexShrink: 0 }} />
