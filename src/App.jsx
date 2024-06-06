@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Game from './components/Game'
 import Lobby from './components/Lobby'
-import CVpage from './CVpage/CVpage'
+//import CVpage from './CVpage/CVpage'
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Lobby />} />
         <Route path="/game" element={<Game />} />
-        <Route path="/cv" element={<CVpage />} />
+        {/*<Route path="/cv" element={<CVpage />} />*/}
       </Routes>
     </div>
   )
